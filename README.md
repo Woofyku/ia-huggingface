@@ -25,7 +25,7 @@ Application web simple pour analyser le **sentiment** de textes liés aux **actu
 Entrer une phrase liée aux finances ou à l'économie, et obtenir :
 - L'**analyse du sentiment** (positif, négatif, neutre),
 - Un **score de confiance**,
-- Un **graphique en camembert** généré automatiquement.
+- Un **graphique en barplot** généré automatiquement.
 
 ---
 
