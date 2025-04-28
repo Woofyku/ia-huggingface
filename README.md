@@ -75,8 +75,8 @@ Puis ouvrez votre navigateur à l'adresse :
 
 - Analyse de sentiments financiers rapide.
 - Retour du **sentiment** et du **score** dans l'interface.
-- Graphique circulaire interactif.
-- Gestion des erreurs (texte vide).
+- Graphique orthonormé interactif.
+- Gestion des erreurs (code retour explicite).
 - Interface épurée et responsive.
 
 ---
