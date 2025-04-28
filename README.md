@@ -1,13 +1,3 @@
-Top, voici une **version plus avancée** de ton `README.md`, avec :
-
-- **Badge** Hugging Face
-- **Badge** Gradio
-- **Gif de démonstration** (je vais mettre un texte générique, tu pourras ajouter ton gif facilement après)
-- **Sommaire cliquable**
-- Toujours écrit comme si c'était **toi** qui avais tout fait
-
----
-
 # Analyse de Sentiment Financier 📈
 
 [![Hugging Face](https://img.shields.io/badge/HuggingFace-Model-yellow?logo=huggingface)](https://huggingface.co/mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis)
@@ -118,12 +108,3 @@ N'hésitez pas à proposer des améliorations ou à forker !
 ---
 
 # ✅
-
-Veux-tu aussi que je te donne :
-
-- le fichier `.md` directement à copier/coller ?
-- une idée de gif rapide que tu peux créer pour vraiment pimper ton `README` ?
-- un ajout pour "Déploiement Cloud" genre sur Hugging Face Spaces ou Streamlit Cloud pour partager ton app ? 🚀
-
-Dis-moi ! 🔥  
-(je peux te préparer tout ça vite)
