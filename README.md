@@ -85,7 +85,7 @@ Puis ouvrez votre navigateur à l'adresse :
 
 Voici un aperçu de l'application en action :  
 
-![Demo de l'App](assets/video.webm)
+![Demo de l'App](assets/results.png)
 
 ---
 
