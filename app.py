@@ -5,7 +5,7 @@ classifier = pipeline("sentiment-analysis", model="mrm8488/distilroberta-finetun
 
 def analyze_sentiment(text):
     if not text:
-        return "Entrez une phrase."
+        return "Entrez une phrase en anglais afin qu'elle soit compréhensible pour le NLP."
     result = classifier(text)[0]
     return f"Sentiment : {result['label']} (Score: {result['score']:.2f})"
 
