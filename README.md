@@ -85,9 +85,7 @@ Puis ouvrez votre navigateur à l'adresse :
 
 Voici un aperçu de l'application en action :  
 
-![Demo de l'App](https://via.placeholder.com/800x400?text=Demo+de+l'application+en+GIF)
-
-> 🔥 Pour remplacer ce GIF, fais une petite capture avec un outil comme ScreenToGif ou RecordScreen.io, et mets ton vrai lien ici.
+![Demo de l'App](https://cdn.discordapp.com/attachments/521824981101838352/1366394717075410986/video.webm?ex=6810c9be&is=680f783e&hm=1c30e4e4f20a8b30a2803e6d9a9baac5d58e559d12152ef97f428c2c0482a85d&)
 
 ---
 
@@ -106,5 +104,3 @@ Projet open-source réalisé pour m'entraîner à l'IA, aux interfaces web, et a
 N'hésitez pas à proposer des améliorations ou à forker !
 
 ---
-
-# ✅

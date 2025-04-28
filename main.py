@@ -1,39 +1,79 @@
 import matplotlib.pyplot as plt
 import gradio as gr
 from transformers import pipeline
+from langdetect import detect, LangDetectException
 
-# Charger le modèle
-classifier = pipeline("sentiment-analysis", model="mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis")
+# Liste des modèles disponibles
+MODELS = {
+    "DistilRoBERTa Financial News": "mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis",
+    "FinBERT Tone (Yiyang)": "yiyanghkust/finbert-tone",
+    "ProsusAI FinBERT": "ProsusAI/finbert",
+    "Financial RoBERTa Large": "echarlaix/financial-roberta-large-sentiment"
+}
 
-# Fonction d'analyse du sentiment avec graphique
-def analyze_sentiment_with_chart(text):
-    if not text:
-        return "Enter an english sentence understandable for the NLP.", None
+# Initialiser avec un modèle par défaut
+current_model = pipeline("sentiment-analysis", model=MODELS["DistilRoBERTa Financial News"])
 
-    result = classifier(text)[0]
-    sentiment = result['label'].lower()  # 'positive', 'neutral', 'negative'
-    score = result['score']
+def analyze_sentiment_with_barplot(text, model_choice):
+    global current_model
 
-    # Préparer les valeurs pour le graphique
-    labels = ['positive', 'neutral', 'negative']
-    values = [score if sentiment == l else 0 for l in labels]
+    # Recharger le modèle si changement
+    selected_model_name = MODELS.get(model_choice)
+    if selected_model_name:
+        current_model = pipeline("sentiment-analysis", model=selected_model_name)
 
-    # Générer le graphique
-    fig, ax = plt.subplots()
-    ax.pie(values, labels=[l.capitalize() for l in labels], autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')
+    # Vérification entrée vide ou trop courte
+    if not text or not text.strip():
+        return "Error: Enter non-empty prompt.", None
+    if len(text.strip()) < 10:
+        return "Error: Text too short for a relevant analysis.", None
 
-    # Texte de sortie
-    output_text = f"Sentiment: {sentiment.capitalize()} (score: {score:.2f})"
-    return output_text, fig
+    # Détection de la langue
+    try:
+        lang = detect(text)
+        if lang != "en":
+            return "Error: The text must be written in English for correct analysis.", None
+    except LangDetectException:
+        return "Error: Unable to detect the language. Please rephrase.", None
 
-# Interface Gradio
+    # Analyse du sentiment
+    try:
+        result = current_model(text)[0]
+        sentiment = result['label'].lower()
+        score = result['score']
+
+        labels = ['positive', 'neutral', 'negative']
+        values = [score if sentiment == l else 0 for l in labels]
+
+        fig, ax = plt.subplots()
+        bars = ax.bar([l.capitalize() for l in labels], values, color=['green', 'gray', 'red'])
+        ax.set_ylim(0, 1)
+        ax.set_ylabel('Score')
+        ax.set_title('Sentiment Analysis Score')
+        for bar, value in zip(bars, values):
+            ax.text(bar.get_x() + bar.get_width() / 2, value + 0.02, f"{value:.2f}", ha='center', va='bottom')
+
+        output_text = f"Sentiment: {sentiment.capitalize()} (score: {score:.2f})"
+        return output_text, fig
+    except Exception as e:
+        return f"Error during analysis: {str(e)}", None
+
 iface = gr.Interface(
-    fn=analyze_sentiment_with_chart,
-    inputs=gr.Textbox(placeholder="Écrivez une actualité financière ici...", label="Texte d'entrée"),
+    fn=analyze_sentiment_with_barplot,
+    inputs=[
+        gr.Dropdown(
+            choices=list(MODELS.keys()),
+            label="Choose the Sentiment Model",
+            value="DistilRoBERTa Financial News"
+        ),
+        gr.Textbox(
+            placeholder="You may write a financial news here...",
+            label="Input Text"
+        )
+    ],
     outputs=["text", "plot"],
-    title="Analyse de Sentiment Financier",
-    description="Bienvenue dans notre outil d'analyse des sentiments pour les nouvelles économiques.",
+    title="Financial Sentiment Analysis",
+    description="Welcome to our sentiment analysis tool for economic news."
 )
 
 if __name__ == "__main__":
