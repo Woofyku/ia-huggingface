@@ -1,1 +1,1 @@
-finiteautomata/bertweet-base-sentiment-analysis
+mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis
